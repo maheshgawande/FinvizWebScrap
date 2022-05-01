@@ -1,18 +1,19 @@
-# from selenium import webdriver
-import ReadyDriver
+from ReadyDriver import GetDriver
+from Log import CreateLog
 
-class WebScrap(ReadyDriver):
+class WebScrap:
     def __init__(self, url):
         self.url = url
+        self.gt = GetDriver()
+        self.driver = self.gt.open_driver()
 
     def open_url(self):
-        self.driver.get(self.url)
-        # try:
-        #     self.driver.get(self.url)
-        # except Exception as ex:
-        #     print(f'Error in WebScrap.open_url: {type(ex).__name__}')
-        #     driver.quit()
-    
+        if(self.driver != False):
+            self.driver.get(self.url)
+        else:
+            err_msg = "Main.py -> WebScrap -> open_url(): Failed to open URL"
+            CreateLog(err_msg)
+
     def find_element(self, element):
         pass
 
@@ -20,7 +21,7 @@ class WebScrap(ReadyDriver):
         driver.quit()
 
 if __name__ == '__main__':
-    url = "http://www.google.com"
+    url = "https://www.google.com/"
 
     wb = WebScrap(url)
     
