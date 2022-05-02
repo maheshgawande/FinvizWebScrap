@@ -7,13 +7,18 @@ class GetDriver:
         self.path = "C:\Program Files (x86)\chromedriver.exe"
 
     def open_driver(self):
+        driver = False
+        err_msg = ""
         if(self.check_path()):
-            driver = webdriver.Chrome(self.path)
-            return driver
+            d = webdriver.Chrome(self.path)
+            err_msg = "ReadyDriver -> GetDriver -> open_driver -> Driver initialized!"
+            driver = d
         else:
             err_msg = "ReadyDriver -> GetDriver -> open_driver -> Failed to open driver!"
-            Createog(err_msg)
-            return False
+            driver = False
+        
+        CreateLog(err_msg)
+        return driver
 
     def close_driver(self):
         get_status(self.driver)
