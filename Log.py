@@ -1,4 +1,6 @@
 import datetime
+from os import mkdir
+from os.path import exists
 
 class CreateLog:
     call_count = 0
@@ -7,18 +9,29 @@ class CreateLog:
         CreateLog.call_count += 1
         self.err_msg = err_msg
         self.log_time = datetime.datetime.now()
+        self.log_path = ""
+        self.setup_file()
         self.write_log()
-
-    def write_log(self):
+    
+    def setup_file(self):
         date = self.log_time.strftime("%d")
         month = self.log_time.strftime("%m")
+        self.log_path = f"Logs/log_{date}-{month}.txt"
+
+        try:
+            if(not exists("Logs")):
+                mkdir("Logs")
+        except FileExistsError:
+            f = open(self.log_path)
+            f.close()
+
+    def write_log(self):
         hour = self.log_time.strftime("%H")
         minute = self.log_time.strftime("%M")
         seconds = self.log_time.strftime("%S")
-        file_name = f"Logs/log_{date}-{month}.txt"
         
         try:
-            f = open(file_name, "a")
+            f = open(self.log_path, "a")
             f.write(f"({hour}:{minute}:{seconds}00){self.err_msg}\n")
             f.close()
         except Exception as ex:
