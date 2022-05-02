@@ -10,15 +10,17 @@ class WebScrap:
     def open_url(self):
         if(self.driver != False):
             self.driver.get(self.url)
+            err_msg = "Main.py-->WebScrap-->open_url--> URL invoked successfully!"
         else:
-            err_msg = "Main.py -> WebScrap -> open_url(): Failed to open URL"
-            CreateLog(err_msg)
+            err_msg = "Main.py-->WebScrap-->open_url--> Failed to open URL!"
+        
+        CreateLog(err_msg)
 
     def find_element(self, element):
         pass
 
     def driver_close(self):
-        driver.quit()
+        self.gt.close_driver()
 
 if __name__ == '__main__':
     url = "https://www.google.com/"
