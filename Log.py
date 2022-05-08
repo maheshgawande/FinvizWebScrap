@@ -5,9 +5,9 @@ from os.path import exists
 class CreateLog:
     call_count = 0
 
-    def __init__(self, err_msg):
+    def __init__(self, log_msg):
         CreateLog.call_count += 1
-        self.err_msg = err_msg
+        self.log_msg = log_msg
         self.log_time = datetime.datetime.now()
         self.log_path = ""
         self.setup_file()
@@ -32,7 +32,7 @@ class CreateLog:
         
         try:
             f = open(self.log_path, "a")
-            f.write(f"({hour}:{minute}:{seconds}00){self.err_msg}\n")
+            f.write(f"({hour}:{minute}:{seconds}00){self.log_msg}\n")
             f.close()
         except Exception as ex:
             f = open(f"log_{date}-{month}.txt", "a")
